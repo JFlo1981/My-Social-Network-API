@@ -22,7 +22,7 @@ const ReactionSchema = new Schema (
             type: Date,
             default: Date.now,
             get: createdAtVal => dateFormat(createdAtVal)
-
+        }
     },
     {
         toJSON: {
@@ -33,11 +33,8 @@ const ReactionSchema = new Schema (
     }
 );
 
-UserSchema.virtual('friendCount').get(function(){
-    return this.length
-});
 
 
-const User = model ("User", UserSchema);
 
-model.exports = User;
+
+module.exports = ReactionSchema;
