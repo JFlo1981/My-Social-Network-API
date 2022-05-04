@@ -65,10 +65,10 @@ const thoughtController = {
       .then((dbThoughtData) => res.json(dbThoughtData))
       .catch((err) => res.json(err));
   },
-  addFriend({ params }, res) {
+  addReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.id },
-      { $addToSet: { friends: params.friendId } },
+      { $addToSet: { reactions: params.reactionId } },
       { new: true, runValidators: true }
     )
       .then((dbThoughtData) => {
