@@ -4,6 +4,7 @@ const thoughtController = {
   // get all Thoughts
   getAllThought(req, res) {
     Thought.find({})
+
       .select("-__v")
       .sort({ _id: -1 })
       .then((dbThoughtData) => res.json(dbThoughtData))
@@ -14,11 +15,11 @@ const thoughtController = {
   },
 
   // get one Thought by id
-  getThoughtById({params}, res) {
-    Thought.findOne({ _id: params.thoughtId })
+  getThoughtById({ params }, res) {
+    Thought.findOne({ _id: params.id })
     .then((dbThoughtData) => {
         if(!dbThoughtData) {
-            res.status(404).json({message: "No user found with this id!" })
+            res.status(404).json({message: "No Thought found with this id!"});
             return;
         }
         res.json(dbThoughtData)
@@ -29,11 +30,13 @@ const thoughtController = {
     });
 },
 
-
   // createThought
   createThought({ body }, res) {
+    console.log("Create thought",body)
     Thought.create(body)
-      .then((dbThoughtData) => res.json(dbThoughtData))
+      .then((dbThoughtData) =>{
+        console.log("Return object",dbThoughtData)
+        res.json(dbThoughtData)})
       .catch((err) => res.json(err));
   },
 
@@ -50,7 +53,9 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
-      .catch((err) => res.json(err));
+      .catch((err) =>{
+        console.log("err",err)
+        res.json(err)});
   },
 
   // delete Thought
