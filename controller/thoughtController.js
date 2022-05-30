@@ -4,7 +4,6 @@ const thoughtController = {
   // get all Thoughts
   getAllThought(req, res) {
     Thought.find({})
-
       .select("-__v")
       .sort({ _id: -1 })
       .then((dbThoughtData) => res.json(dbThoughtData))
@@ -15,26 +14,21 @@ const thoughtController = {
   },
 
   // get one Thought by id
-  getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.id })
-      .populate(
-        {
-          path: "thoughts",
-          select: "-__v",
-        },
-        {
-          path: "friends",
-          select: "-__v",
+  getThoughtById({params}, res) {
+    Thought.findOne({ _id: params.thoughtId })
+    .then((dbThoughtData) => {
+        if(!dbThoughtData) {
+            res.status(404).json({message: "No user found with this id!" })
+            return;
         }
-      )
-
-      .select("-__v")
-      .then((dbThoughtData) => res.json(dbThoughtData))
-      .catch((err) => {
+        res.json(dbThoughtData)
+    })
+    .catch((err) => {
         console.log(err);
-        res.sendStatus(400);
-      });
-  },
+        res.status(400).json(err);
+    });
+},
+
 
   // createThought
   createThought({ body }, res) {
