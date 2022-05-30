@@ -53,7 +53,7 @@ const thoughtController = {
           { new: true, runValidators: true}
         );
       })
-      .then((updatedUser) {
+      .then((updatedUser) => {
         if (!updatedUser) {
         res.status(404)
         .json({ message: "No Thought found with this id!" });
