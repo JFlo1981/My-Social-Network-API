@@ -68,13 +68,13 @@ const userController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No user found with this id!" });
+          res.status(404).json({ message: "No Friend found with this id!" });
           return;
         }
         res.json(dbUserData);
       })
       .catch((err) => res.json(err));
-  },
+  },  
   removeFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.id },
@@ -83,7 +83,7 @@ const userController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No user found with this id!" });
+          res.status(404).json({ message: "No friend found with this id!" });
           return;
         }
         res.json(dbUserData);
